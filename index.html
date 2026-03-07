@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de CEP Pro | Encontre Endereços e Códigos Postais</title>
+    <meta name="description" content="O melhor Buscador de CEP online. Encontre o CEP de qualquer rua, bairro ou cidade do Brasil de forma rápida e gratuita.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0284c7; /* Azul Oceano mais profissional para busca */
+            --primary-hover: #0369a1;
+            --bg: #f1f5f9;
+            --text: #0f172a;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        
+        header { background: #fff; border-bottom: 2px solid var(--primary); padding: 1.2rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+
+
+        nav { display: flex; justify-content: center; gap: 8px; margin: 2.5rem 0; flex-wrap: wrap; }
+        .nav-btn { 
+            padding: 10px 20px; border: 1px solid var(--border); background: #fff; 
+            cursor: pointer; border-radius: 50px; font-weight: 600; transition: 0.3s; color: #64748b;
+        }
+        .nav-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+
+
+        .tool-section { display: none; background: var(--card-bg); padding: 35px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        .tool-section.active { display: block; animation: slideUp 0.4s ease; }
+
+
+        h1 { font-size: 2.5rem; text-align: center; margin: 2rem 0 0.5rem; color: #0f172a; letter-spacing: -1px; }
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; }
+        
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: #334155; }
+        input { width: 100%; padding: 14px; border: 2px solid #f1f5f9; border-radius: 10px; font-size: 1rem; background: #f8fafc; transition: 0.2s; }
+        input:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1); }
+        
+        button.main-btn { 
+            width: 100%; background: var(--primary); color: #fff; border: none; 
+            padding: 16px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        button.main-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(2, 132, 199, 0.4); }
+
+
+        .result-box { margin-top: 25px; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px dashed var(--primary); }
+        .result-item { padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+        .result-item:last-child { border-bottom: none; }
+
+
+        /* SEO Section */
+        .seo-content { margin-top: 4rem; padding: 3rem 0; border-top: 1px solid var(--border); }
+        .faq-item { margin-bottom: 30px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .faq-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--primary); }
+        
+        footer { background: #1e293b; color: #f1f5f9; padding: 50px 0; margin-top: 5rem; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .footer-links a { color: #38bdf8; text-decoration: none; font-size: 0.9rem; }
+
+
+        #cookie-banner {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 550px;
+            background: #0f172a; color: #fff; padding: 18px 25px; border-radius: 16px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000; display: none;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+        }
+        #cookie-banner button { background: var(--primary); border: none; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; text-align: center; } h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+
+
+<header>
+    <div class="container">
+        <a href="#" class="logo">
+            <span>🔍</span> Buscador de CEP Pro
+        </a>
+    </div>
+</header>
+
+
+<div class="container">
+    <h1>Encontre qualquer CEP no Brasil</h1>
+    <p class="subtitle">A ferramenta mais rápida para localizar endereços, bairros e códigos postais atualizados.</p>
+
+
+    <nav>
+        <button class="nav-btn active" onclick="showTab('cep')">📍 Buscar Endereço</button>
+        <button class="nav-btn" onclick="showTab('cpf')">🪪 Gerador de CPF</button>
+        <button class="nav-btn" onclick="showTab('senha')">🔑 Criar Senha</button>
+    </nav>
+
+
+    <section id="cep" class="tool-section active">
+        <h2>📍 Localizador de CEP</h2>
+        <div class="input-group">
+            <label>Nome da Rua ou Avenida</label>
+            <input type="text" id="rua" placeholder="Ex: Rua das Flores">
+        </div>
+        <div class="input-group">
+            <label>Cidade</label>
+            <input type="text" id="cidade" placeholder="Ex: Rio de Janeiro">
+        </div>
+        <div class="input-group">
+            <label>Estado (Sigla)</label>
+            <input type="text" id="uf" placeholder="Ex: RJ" maxlength="2" style="text-transform: uppercase;">
+        </div>
+        <button class="main-btn" onclick="buscarCEP()">
+            <span>🔍</span> Localizar Código Postal
+        </button>
+        <div id="res-cep" class="result-box" style="display:none;"></div>
+    </section>
+
+
+    <section id="cpf" class="tool-section">
+        <h2>🪪 Gerador de CPF para Programadores</h2>
+        <p style="margin-bottom: 20px; color: #64748b;">Gere um número de CPF válido algoritmicamente para usar em seus testes de software e formulários.</p>
+        <button class="main-btn" onclick="gerarCPF()">Gerar Novo CPF</button>
+        <div id="res-cpf" class="result-box" style="display:none; font-size: 1.8rem; text-align: center; font-weight: 800; color: var(--primary); letter-spacing: 2px;"></div>
+    </section>
+
+
+    <section id="senha" class="tool-section">
+        <h2>🔑 Gerador de Senhas Seguras</h2>
+        <div class="input-group">
+            <label>Quantidade de caracteres: <span id="lenLabel" style="color:var(--primary); font-weight:bold;">16</span></label>
+            <input type="range" id="length" min="8" max="32" value="16" oninput="document.getElementById('lenLabel').innerText = this.value">
+        </div>
+        <button class="main-btn" onclick="gerarSenha()">Criar Senha Forte</button>
+        <div id="res-senha" class="result-box" style="display:none; font-family: monospace; font-size: 1.4rem; text-align: center; color: #0369a1;"></div>
+    </section>
+
+
+    <article class="seo-content">
+        <h2 style="text-align: center; margin-bottom: 40px;">Como usar o Buscador de CEP Pro?</h2>
+        
+        <div class="faq-item">
+            <h3>Como descobrir o CEP de uma rua específica?</h3>
+            <p>Para encontrar o CEP, basta digitar o nome do logradouro (rua, avenida ou praça), o nome da cidade e a sigla do estado em nosso formulário de busca. Em segundos, exibiremos o CEP correspondente e informações adicionais do bairro.</p>
+        </div>
+
+
+        <div class="faq-item">
+            <h3>A busca de CEP é gratuita?</h3>
+            <p>Sim! O Buscador de CEP Pro é uma ferramenta 100% gratuita e online, disponível para computadores e dispositivos móveis, facilitando a consulta de qualquer endereço no território brasileiro.</p>
+        </div>
+
+
+        <div class="faq-item">
+            <h3>Por que usar nosso Gerador de CPF e Senhas?</h3>
+            <p>Além da busca postal, oferecemos ferramentas de utilidade para desenvolvedores. O gerador de senhas garante que seus dados estejam protegidos com combinações complexas, e o gerador de CPF auxilia no preenchimento de ambientes de homologação.</p>
+        </div>
+    </article>
+</div>
+
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h3 style="margin-bottom: 15px; color: #38bdf8;">Buscador de CEP Pro</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Sua ferramenta definitiva para consultas postais e utilitários digitais. Rápido, seguro e sempre gratuito.</p>
+            </div>
+            <div class="footer-links">
+                <h3 style="margin-bottom: 15px; color: #38bdf8;">Links Úteis</h3>
+                <p><a href="#">Privacidade e Segurança</a></p>
+                <p><a href="#">Termos de Uso do Site</a></p>
+                <p><a href="#">Contato / Suporte</a></p>
+            </div>
+        </div>
+        <div style="margin-top: 40px; text-align: center; font-size: 0.8rem; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            &copy; 2024 Buscador de CEP Pro. Não armazenamos dados de consulta dos usuários.
+        </div>
+    </div>
+</footer>
+
+
+<div id="cookie-banner">
+    <span style="font-size: 0.9rem;">Este site utiliza cookies para garantir a melhor experiência de busca.</span>
+    <button onclick="acceptCookies()">Aceitar</button>
+</div>
+
+
+<script>
+    function showTab(id) {
+        document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+
+    async function buscarCEP() {
+        const rua = document.getElementById('rua').value;
+        const cid = document.getElementById('cidade').value;
+        const uf = document.getElementById('uf').value;
+        const res = document.getElementById('res-cep');
+
+
+        if(rua.length < 3 || cid.length < 3) {
+            alert("Por favor, preencha o nome da rua e da cidade corretamente.");
+            return;
+        }
+        
+        res.style.display = 'block';
+        res.innerHTML = "Buscando informações...";
+
+
+        try {
+            const url = `https://viacep.com.br/ws/${uf}/${encodeURIComponent(cid)}/${encodeURIComponent(rua)}/json/`;
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if(!data.length) {
+                res.innerHTML = "❌ Nenhum CEP encontrado para este endereço.";
+                return;
+            }
+
+
+            res.innerHTML = data.slice(0, 10).map(item => `
+                <div class="result-item">
+                    <strong style="color:var(--primary); font-size: 1.1rem;">CEP: ${item.cep}</strong><br>
+                    <span>${item.logradouro} - ${item.bairro}</span><br>
+                    <small>${item.localidade}/${item.uf}</small>
+                </div>
+            `).join('');
+        } catch {
+            res.innerHTML = "⚠️ Serviço indisponível no momento. Tente novamente.";
+        }
+    }
+
+
+    function gerarCPF() {
+        const r = (n) => Math.floor(Math.random() * n);
+        let n = Array.from({length: 9}, () => r(10));
+        const calc = (t) => {
+            let s = 0;
+            for(let i=0; i<t; i++) s += n[i] * ((t+1)-i);
+            s = 11 - (s % 11);
+            return s >= 10 ? 0 : s;
+        };
+        n.push(calc(9));
+        n.push(calc(10));
+        const formatado = n.join('').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        const res = document.getElementById('res-cpf');
+        res.style.display = 'block';
+        res.innerText = formatado;
+    }
+
+
+    function gerarSenha() {
+        const len = document.getElementById('length').value;
+        const chars = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*";
+        let senha = "";
+        for (let i = 0; i < len; i++) {
+            senha += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        const res = document.getElementById('res-senha');
+        res.style.display = 'block';
+        res.innerText = senha;
+    }
+
+
+    if(!localStorage.getItem('cep_cookies')) {
+        setTimeout(() => { document.getElementById('cookie-banner').style.display = 'flex'; }, 1500);
+    }
+    function acceptCookies() {
+        localStorage.setItem('cep_cookies', 'true');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+</script>
+
+
+</body>
+</html>

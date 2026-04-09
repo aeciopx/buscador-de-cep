@@ -72,15 +72,20 @@
 
     <main class="max-w-4xl mx-auto px-4 py-12 space-y-12">
         <!-- Hero Section -->
-        <section class="text-center space-y-4">
-            <h1 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                Buscador de Cep <br />
-                <span class="text-primary">Ferramentas Digitais Gratuitas</span>
+        <section class="text-center space-y-3">
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                Utilitários <span class="text-primary">Digitais</span>
             </h1>
-            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-                Consulte CEP por endereço, localize dados de CNPJ, gere CPFs para testes, crie senhas seguras e gere QR Codes personalizados com temas exclusivos. Tudo em um só lugar.
+            <p class="text-base text-slate-500 max-w-xl mx-auto">
+                CEP, CNPJ, CPF, Senhas e QR Codes. Ferramentas rápidas e seguras para o seu dia a dia profissional.
             </p>
         </section>
+
+        <!-- Ad Space -->
+        <div class="w-full bg-slate-200/30 border border-slate-200 rounded-2xl min-h-[90px] flex items-center justify-center overflow-hidden shadow-inner">
+            <script async="async" data-cfasync="false" src="https://pl29095277.profitablecpmratenetwork.com/2d91a01418117dd8337287d2d1b6edd9/invoke.js"></script>
+            <div id="container-2d91a01418117dd8337287d2d1b6edd9" class="w-full"></div>
+        </div>
 
         <!-- Navigation Tabs -->
         <div class="flex flex-wrap justify-center gap-2 p-1 bg-slate-200/50 rounded-2xl">
@@ -504,7 +509,7 @@
 
                 resDiv.innerHTML = renderCepCard(data);
                 lucide.createIcons();
-                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
             } catch (e) {
                 resDiv.innerHTML = '';
                 errDiv.innerText = e.message;
@@ -539,7 +544,7 @@
                     resDiv.innerHTML += renderCepCard(item);
                 });
                 lucide.createIcons();
-                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
             } catch (e) {
                 resDiv.innerHTML = '';
                 errDiv.innerText = e.message;
@@ -600,7 +605,7 @@
                 `;
                 resDiv.classList.remove('hidden');
                 lucide.createIcons();
-                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+                setTimeout(() => resDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
             } catch (e) {
                 errDiv.innerText = e.message;
                 errDiv.classList.remove('hidden');
@@ -616,7 +621,7 @@
             const display = document.getElementById('cpf-display');
             document.getElementById('cpf-value').innerText = cpf;
             display.classList.remove('hidden');
-            setTimeout(() => display.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+            setTimeout(() => display.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         function gerarSenha() {
@@ -626,7 +631,7 @@
             const display = document.getElementById('senha-display');
             document.getElementById('senha-value').innerText = s;
             display.classList.remove('hidden');
-            setTimeout(() => display.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+            setTimeout(() => display.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         function setQrTheme(dark, light) {
@@ -661,7 +666,7 @@
                 correctLevel : QRCode.CorrectLevel.H
             });
             document.getElementById('qr-download-btns').classList.remove('hidden');
-            setTimeout(() => document.getElementById('qrPreviewContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+            setTimeout(() => document.getElementById('qrPreviewContainer').scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         function baixarQrCode(format) {
@@ -694,6 +699,5 @@
             }
         }
     </script>
-    <script src="https://pl29090929.profitablecpmratenetwork.com/e5/a0/40/e5a040b3e4410f44470157a917494b31.js"></script>
 </body>
 </html>
